@@ -1,7 +1,9 @@
 package com.austinknauer.creditcard.controllers;
 
+import com.austinknauer.creditcard.dtos.Number;
 import com.austinknauer.creditcard.services.NumberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +22,9 @@ public class NumberController {
         this.numberService = numberService;
     }
 
-    @PostMapping("/save")
-    public String saveCard(@RequestBody String number, HttpServletResponse res) {
-        boolean valid = numberService.validate(number);
+    @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String saveCard(@RequestBody Number number, HttpServletResponse res) {
+        boolean valid = numberService.validate(number.getNumber());
 
         if (valid) {
             res.setStatus(200);

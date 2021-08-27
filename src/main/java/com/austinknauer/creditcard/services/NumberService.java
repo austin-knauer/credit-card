@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 public class NumberService {
 
     public boolean validate(String number) {
+
         if (number.length() < 14 || number.length() > 19 || number.matches("\\D")) {
             return false;
         }
@@ -19,11 +20,13 @@ public class NumberService {
                 if (newNum > 9) {
                     newNum = (newNum / 10) + (newNum % 10);
                 }
+                System.out.println(newNum);
                 finalSum += newNum;
             } else {
                 finalSum += Character.getNumericValue(number.charAt(i));
             }
         }
+
 
         int fromTen = 10 - (finalSum % 10);
         return fromTen == lastDigit;
